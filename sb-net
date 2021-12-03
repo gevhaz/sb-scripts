@@ -1,0 +1,9 @@
+#!/bin/sh
+
+connections=$(ip a | grep enp0s20f0u3u1u3 | grep inet | wc -l)
+if [ $connections -eq 1 ] ; then
+    echo "NET: On"
+else
+    echo "NET: Off"
+fi
+

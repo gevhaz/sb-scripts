@@ -1,0 +1,6 @@
+#!/bin/sh
+
+load="$(sb-cpu-load)"
+temp="$(sb-cpu-temp)"
+
+echo "CPU: $load $temp"

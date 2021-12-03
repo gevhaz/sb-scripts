@@ -1,0 +1,3 @@
+#! /bin/bash
+
+echo "MEM: $(free -h --giga | awk '/^Mem:/ { print $3 }')"
