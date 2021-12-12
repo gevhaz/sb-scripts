@@ -46,6 +46,7 @@ symbol_map["cloudy"]=""
 # symbol_map["clearsky_day"]="Clear sky"
 symbol_map["clearsky_day"]=""
 symbol_map["lightsleet"]=""
+symbol_map["lightrain"]=""
 
 human_readable() {
     if [ -v symbol_map[$1] ] ; then
