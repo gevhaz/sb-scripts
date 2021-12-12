@@ -1,0 +1,22 @@
+#! /bin/bash
+
+song_data=$(playerctl metadata --format "{{artist}} - {{title}}")
+artist=$(echo ${song_data} | awk -F "-" '{print $1}' )
+artist=$(echo $artist)
+title=$(echo ${song_data} | awk -F "-" '{print $2}' )
+title=$(echo $title)
+song_data="${artist}${title:+" - ${title}"}"
+song_length=${#song_data}
+
+text_length=30
+
+if [ $song_length -ge $text_length ] ; then
+    time=$(cat /proc/uptime | awk '{print int($1)}')
+    time=$((time % song_length))
+    song_data="${song_data} » ${song_data}"
+    song_data=${song_data:$time}
+    song_data=${song_data::$text_length}
+    echo " $song_data"
+else
+    echo " $song_data"
+fi

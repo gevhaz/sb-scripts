@@ -7,7 +7,7 @@ today_time=$(echo "${weather_data_lund}" | jq -r '.properties.timeseries[0].time
 tomorrow_weather=$(echo "${weather_data_lund}" | jq -r '.properties.timeseries[24].data.next_12_hours.summary.symbol_code')
 tomorrow_time=$(echo "${weather_data_lund}" | jq -r '.properties.timeseries[24].time')
 tomorrow_temp=$(echo "${weather_data_lund}" | jq -r '.properties.timeseries[24].data.instant.details.air_temperature')
-echo "$weather_data_lund" | gron | head -n 50
+# echo "$weather_data_lund" | gron | head -n 50
 # echo "$weather_data_lund"
 
 # if [ $today_temp > 0 ]; then
@@ -20,7 +20,13 @@ echo "$weather_data_lund" | gron | head -n 50
 #
 
 round () {
-    echo $1 | awk '{print ($0>0)?(($0-int($0)<0.5)?int($0):(int($0)+1)):((int($0)-$0<0.5)?int($0):int($0)-1)}'
+    round_n=$(echo $1 | awk '{print ($0>0)?(($0-int($0)<0.5)?int($0):(int($0)+1)):((int($0)-$0<0.5)?int($0):int($0)-1)}')
+    if [ $((round_n)) -lt 0 ] ; then
+        echo -n "-"
+    else
+        echo -n "+"
+    fi
+    echo -n "$round_n°C "
 }
 
 # if [ $tomorrow_temp > 0 ]; then
@@ -35,8 +41,11 @@ round () {
 declare -A symbol_map
 
 # Map of weather icon names and human readable expressions
-symbol_map["cloudy"]="Cloudy"
-symbol_map["clearsky_day"]="Clear sky"
+# symbol_map["cloudy"]="Cloudy"
+symbol_map["cloudy"]=""
+# symbol_map["clearsky_day"]="Clear sky"
+symbol_map["clearsky_day"]=""
+symbol_map["lightsleet"]=""
 
 human_readable() {
     if [ -v symbol_map[$1] ] ; then
@@ -46,17 +55,17 @@ human_readable() {
     fi
 }
 
-echo ""
-echo "The following data is for: ${today_time}"
-echo "Temperature the following 6 hours:"
+# echo ""
+# echo "The following data is for: ${today_time}"
+# echo "Temperature the following 6 hours:"
 round $today_temp
-echo "Weather the following 6 hours:"
+# echo "Weather the following 6 hours:"
 human_readable $today_weather
 
-echo ""
-echo "The following data is for: ${tomorrow_time}"
-echo $tomorrow_time | xargs date +%Y-%m-%d -d
-echo "Temperature tomorrow:"
-round $tomorrow_temp
-echo "Weather tomorrow:"
-human_readable $tomorrow_weather
+# echo ""
+# echo "The following data is for: ${tomorrow_time}"
+# echo $tomorrow_time | xargs date +%Y-%m-%d -d
+# echo "Temperature tomorrow:"
+# round $tomorrow_temp
+# echo "Weather tomorrow:"
+# human_readable $tomorrow_weather

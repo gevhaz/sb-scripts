@@ -1,0 +1,8 @@
+#! /bin/bash
+
+n_tasks=$(task due:today stats | grep "Pending" | awk '{print $2}')
+
+# echo "Tasks: ${n_tasks}"
+# echo " ${n_tasks}"
+echo " ${n_tasks}"
+# echo "陼 ${n_tasks}"

@@ -1,0 +1,10 @@
+#! /bin/bash
+
+green="\e[0;92m"
+
+if pamixer --list-sinks | grep bluez_sink > /dev/null ; then
+    echo "﫽"
+    # echo "${green}﫽${green}"
+else
+    echo "﫾"
+fi
