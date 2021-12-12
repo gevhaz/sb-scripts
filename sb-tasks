@@ -1,8 +1,10 @@
 #! /bin/bash
 
-n_tasks=$(task due:today stats | grep "Pending" | awk '{print $2}')
+n_tasks=$(task +TODAY stats | grep "Pending" | awk '{print $2}')
+n_overdue_tasks=$(task 'due < today' stats | grep "Pending" | awk '{print $2}')
+n_tasks_done_today=$(task +COMPLETED modified:today stats |grep "Completed" | awk '{print $2}')
 
 # echo "Tasks: ${n_tasks}"
 # echo " ${n_tasks}"
-echo " ${n_tasks}"
+echo " ${n_tasks} 鬒 ${n_overdue_tasks}  $n_tasks_done_today"
 # echo "陼 ${n_tasks}"
