@@ -1,6 +1,0 @@
-#! /bin/bash
-
-while true; do
-    xsetroot -name " CPU: $(sb-cpu) | MEM: $(sb-mem) | $(sb-time) "
-    sleep 2
-done
