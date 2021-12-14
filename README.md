@@ -7,6 +7,11 @@ To use them, put them in your path. I use them with
 bar that calls scripts that return the text to display should work just
 as well.
 
+Here's a screenshot of what it can look like when used with dwmblocks in
+dwm with Nord theme:
+
+![Screenshot of my statusbar]{screenshot.png}
+
 # Licence
 
 These scripts are likely too small to be covered by copyright but just
