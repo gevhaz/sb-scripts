@@ -1,5 +1,8 @@
 #! /bin/bash
 
+# Needs pamixer.
+# Shows whether a bluetooth audio device is connected or not.
+
 green="\e[0;92m"
 
 if pamixer --list-sinks | grep bluez_sink > /dev/null ; then
