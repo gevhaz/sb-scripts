@@ -1,4 +1,6 @@
 #! /bin/bash
 
+# I received this script from someone else and don't know the original author.
+
 # echo "MEM: $(free -h --giga | awk '/^Mem:/ { print $3 }')"
 echo " $(free -h --giga | awk '/^Mem:/ { print $3 }')"
