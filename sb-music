@@ -7,7 +7,7 @@ artist=$(echo ${song_data} | awk -F "-" '{print $1}' )
 artist=$(echo $artist)
 title=$(echo ${song_data} | awk -F "-" '{print $2}' )
 title=$(echo $title)
-song_data="${artist}${title:+" - ${title}"}"
+song_data="${artist:+${artist} - }${title}"
 song_length=${#song_data}
 
 text_length=30
