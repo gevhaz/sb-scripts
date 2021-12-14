@@ -10,7 +10,7 @@ as well.
 Here's a screenshot of what it can look like when used with dwmblocks in
 dwm with Nord theme:
 
-![Screenshot of my statusbar]{screenshot.png}
+![Screenshot of my statusbar](screenshot.png)
 
 # Licence
 
