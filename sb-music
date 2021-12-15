@@ -2,7 +2,7 @@
 
 shopt -s extglob
 
-song_data=$(playerctl metadata --format "{{artist}} - {{title}}")
+song_data=$(playerctl metadata --format "{{artist}} - {{title}}" 2> /dev/null)
 artist=$(echo ${song_data} | awk -F "-" '{print $1}' )
 artist=$(echo $artist)
 title=$(echo ${song_data} | awk -F "-" '{print $2}' )
@@ -15,7 +15,7 @@ text_length=30
 signal_pattern="Signal?( ([0-9]))"
 signal_pattern="Signal?()"
 
-if [[ "${title}" == "YouTube Music" || "${title}" =~ $signal_pattern ]] ; then
+if [[ -z "$song_data" || "${title}" == "YouTube Music" || "${title}" =~ $signal_pattern ]] ; then
     echo " ~"
     exit 0
 fi
