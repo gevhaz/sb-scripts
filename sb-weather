@@ -24,7 +24,7 @@ declare -A symbol_map
 
 # Map of weather icon names and human readable expressions
 symbol_map["cloudy"]=""
-symbol_map["clearsky_day"]=""
+symbol_map["clearsky_day"]=""
 symbol_map["lightsleet"]=""
 symbol_map["lightrain"]=""
 symbol_map["fog"]=""
