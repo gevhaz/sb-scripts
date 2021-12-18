@@ -2,11 +2,10 @@
 
 connections=$(ip a | grep enp0s20f | grep -c inet)
 wifi_connections=$(ip a | grep wlp2s0 | grep -c inet)
-if [[ $connections -eq 1 ]] ; then
-    echo ""
-elif [[ $wifi_connections -eq 1 ]] ; then
-    echo ""
+if [[ $connections -eq 1 ]]; then
+	echo ""
+elif [[ $wifi_connections -eq 1 ]]; then
+	echo ""
 else
-    echo " 睊"
+	echo " 睊"
 fi
-

@@ -2,9 +2,9 @@
 
 shopt -s extglob
 
-song_data=$(playerctl metadata --format "{{artist}} - {{title}}" 2> /dev/null)
-artist=$(echo "${song_data}" | awk -F "-" '{print $1}' | awk '{$1=$1}1' )
-title=$(echo "${song_data}" | awk -F "-" '{print $2}' | awk '{$1=$1}1' )
+song_data=$(playerctl metadata --format "{{artist}} - {{title}}" 2>/dev/null)
+artist=$(echo "${song_data}" | awk -F "-" '{print $1}' | awk '{$1=$1}1')
+title=$(echo "${song_data}" | awk -F "-" '{print $2}' | awk '{$1=$1}1')
 song_data="${artist:+${artist} - }${title}"
 song_length=${#song_data}
 
@@ -13,18 +13,18 @@ text_length=30
 signal_pattern="Signal?( ([0-9]))"
 signal_pattern="Signal?()"
 
-if [[ -z "$song_data" || "${title}" == "YouTube Music" || "${title}" =~ $signal_pattern ]] ; then
-    echo " ~"
-    exit 0
+if [[ -z $song_data || ${title} == "YouTube Music" || ${title} =~ $signal_pattern ]]; then
+	echo " ~"
+	exit 0
 fi
 
-if [[ $song_length -ge $text_length ]] ; then
-    time=$(awk '{print int($1)}' /proc/uptime)
-    time=$((time % song_length))
-    song_data="${song_data} » ${song_data}"
-    song_data=${song_data:$time}
-    song_data=${song_data::$text_length}
-    echo " $song_data"
+if [[ $song_length -ge $text_length ]]; then
+	time=$(awk '{print int($1)}' /proc/uptime)
+	time=$((time % song_length))
+	song_data="${song_data} » ${song_data}"
+	song_data=${song_data:time}
+	song_data=${song_data::text_length}
+	echo " $song_data"
 else
-    echo " $song_data"
+	echo " $song_data"
 fi

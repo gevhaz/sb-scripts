@@ -2,5 +2,5 @@
 
 # Not my own script, see sb-cpu
 
-temp=$(sensors | awk '/Core 0/ { print $3 }' | sed "s/+//;s/\.[0-9]//";)
+temp=$(sensors | awk '/Core 0/ { print $3 }' | sed "s/+//;s/\.[0-9]//")
 echo "$temp"

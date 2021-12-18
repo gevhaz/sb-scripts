@@ -2,12 +2,12 @@
 
 # Not my own script, see sb-cpu
 
-read -r _ a b c previdle rest < /proc/stat
+read -r _ a b c previdle rest </proc/stat
 prevtotal=$((a + b + c + previdle))
 sleep 0.5
-read -r _ a b c idle rest < /proc/stat
+read -r _ a b c idle rest </proc/stat
 total=$((a + b + c + idle))
 
-load=$((100 * ((total - prevtotal) - (idle - previdle)) / (total - prevtotal) ))
+load=$((100 * ((total - prevtotal) - (idle - previdle)) / (total - prevtotal)))
 
 echo "$load%"

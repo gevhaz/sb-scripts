@@ -3,8 +3,8 @@
 # Needs pamixer.
 # Shows whether a bluetooth audio device is connected or not.
 
-if pamixer --list-sinks | grep bluez_sink > /dev/null ; then
-    echo "﫽"
+if pamixer --list-sinks | grep bluez_sink >/dev/null; then
+	echo "﫽"
 else
-    echo "﫾"
+	echo "﫾"
 fi

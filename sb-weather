@@ -10,14 +10,14 @@ today_temp=$(echo "${weather_data_lund}" | jq -r '.properties.timeseries[0].data
 # tomorrow_time=$(echo "${weather_data_lund}" | jq -r '.properties.timeseries[24].time')
 # tomorrow_temp=$(echo "${weather_data_lund}" | jq -r '.properties.timeseries[24].data.instant.details.air_temperature')
 
-round () {
-    round_n=$(echo "$1" | awk '{print ($0>0)?(($0-int($0)<0.5)?int($0):(int($0)+1)):((int($0)-$0<0.5)?int($0):int($0)-1)}')
-    if [ $((round_n)) -lt 0 ] ; then
-        echo -n "-"
-    else
-        echo -n "+"
-    fi
-    echo -n "$round_n°C "
+round() {
+	round_n=$(echo "$1" | awk '{print ($0>0)?(($0-int($0)<0.5)?int($0):(int($0)+1)):((int($0)-$0<0.5)?int($0):int($0)-1)}')
+	if [ $((round_n)) -lt 0 ]; then
+		echo -n "-"
+	else
+		echo -n "+"
+	fi
+	echo -n "$round_n°C "
 }
 
 declare -A symbol_map
@@ -30,11 +30,11 @@ symbol_map["lightrain"]=""
 symbol_map["fog"]=""
 
 human_readable() {
-    if [[ -v symbol_map[$1] ]] ; then
-        echo ${symbol_map[$1]}
-    else
-        echo "$1"
-    fi
+	if [[ -v symbol_map[$1] ]]; then
+		echo ${symbol_map[$1]}
+	else
+		echo "$1"
+	fi
 }
 
 # echo "Temperature the following 6 hours:"

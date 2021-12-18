@@ -1,10 +1,10 @@
 #!/bin/bash
 
 connections=$(ip a | grep vpn80-se-got | grep -c inet)
-if [[ $connections -eq 1 ]] ; then
-    # echo "VPN: On"
-    echo ""
+if [[ $connections -eq 1 ]]; then
+	# echo "VPN: On"
+	echo ""
 else
-    # echo "VPN: Off"
-    echo ""
+	# echo "VPN: Off"
+	echo ""
 fi
