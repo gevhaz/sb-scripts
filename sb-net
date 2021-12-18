@@ -1,10 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 
-connections=$(ip a | grep enp0s20f | grep inet | wc -l)
-wifi_connections=$(ip a | grep wlp2s0 | grep inet | wc -l)
-if [ $connections -eq 1 ] ; then
+connections=$(ip a | grep enp0s20f | grep -c inet)
+wifi_connections=$(ip a | grep wlp2s0 | grep -c inet)
+if [[ $connections -eq 1 ]] ; then
     echo ""
-elif [ $wifi_connections -eq 1 ] ; then
+elif [[ $wifi_connections -eq 1 ]] ; then
     echo ""
 else
     echo " 睊"
