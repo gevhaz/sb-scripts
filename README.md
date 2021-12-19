@@ -12,6 +12,10 @@ dwm with Nord theme:
 
 ![Screenshot of my statusbar](screenshot.png)
 
+Or as a GIF:
+
+![GIF of my statusbar](status-bar.gif)
+
 You need to install [Nerd Fonts](https://www.nerdfonts.com) for the
 icons to display correctly, and set dwm to use it. In the screenshot I
 use Nerd Font Hack Mono.
