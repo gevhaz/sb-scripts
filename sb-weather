@@ -17,7 +17,7 @@ round() {
 	else
 		echo -n "+"
 	fi
-	echo -n "$round_n°C "
+	echo -n "${round_n}°C "
 }
 
 declare -A symbol_map
