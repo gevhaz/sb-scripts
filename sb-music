@@ -2,7 +2,7 @@
 
 shopt -s extglob
 
-quodlibet_status=$(playerctl status --player quodlibet)
+quodlibet_status=$(playerctl status --player quodlibet 2>/dev/null)
 
 if [[ $quodlibet_status != "Paused" && $quodlibet_status != "No players found" ]] ; then
     song_data=$(playerctl metadata --player quodlibet --format "{{artist}} - {{title}}" 2>/dev/null)
