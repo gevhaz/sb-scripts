@@ -13,7 +13,7 @@ today_temp=$(echo "${weather_data_lund}" | jq -r '.properties.timeseries[0].data
 round() {
 	round_n=$(echo "$1" | awk '{print ($0>0)?(($0-int($0)<0.5)?int($0):(int($0)+1)):((int($0)-$0<0.5)?int($0):int($0)-1)}')
 	if [ $((round_n)) -lt 0 ]; then
-		echo -n "-"
+		echo -n ""
 	else
 		echo -n "+"
 	fi
