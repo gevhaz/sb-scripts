@@ -1,0 +1,18 @@
+#! /bin/bash
+
+percentage=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | awk '/percentage/ {print $2}')
+state=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | awk '/state/ {print $2}')
+
+case "$state" in
+	"fully-charged") state_icon="" ;;
+	"discharging") state_icon="" ;;
+	"charging") state_icon="" ;;
+	"unknown") state_icon="" ;;
+	*) exit 1 ;;
+esac
+
+if [[ ${percentage::-1} -le 10 ]] ; then
+    state_icon=""
+fi
+
+echo "$state_icon $percentage"
