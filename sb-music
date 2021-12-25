@@ -21,17 +21,14 @@ signal_pattern="Signal?( ([0-9]))"
 signal_pattern="Signal?()"
 
 if [[ -z $song_data || ${title} == "YouTube Music" || ${title} =~ $signal_pattern ]]; then
-	echo " ~"
-	exit 0
-fi
-
-if [[ $song_length -ge $text_length ]]; then
-	time=$(awk '{print int($1)}' /proc/uptime)
+    echo "~"
+elif [[ $song_length -ge $text_length ]]; then
+	time=$(awk '{print int($1) + 1000}' /proc/uptime)
 	time=$((time % song_length))
 	song_data="${song_data} » ${song_data}"
 	song_data=${song_data:time}
 	song_data=${song_data::text_length}
-	echo " $song_data"
+	echo "$song_data"
 else
-	echo " $song_data"
+	echo "$song_data"
 fi
