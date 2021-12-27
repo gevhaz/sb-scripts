@@ -31,6 +31,7 @@ symbol_map["fog"]=""
 symbol_map["clearsky_night"]=""
 symbol_map["fair_night"]=""
 symbol_map["partlycloudy_night"]=""
+symbol_map["partlycloudy_day"]=""
 symbol_map["snow"]=""
 symbol_map["sleet"]=""
 
