@@ -1,0 +1,33 @@
+#! /bin/bash
+
+# Script to show data about Transmission
+
+speeds=$(transmission-remote -l)
+
+if [ -z "${speeds}" ]; then
+    exit 1
+fi
+
+down=$(echo "${speeds}" | awk '$1~/Sum/ {print $5}' | awk -F. '{print $1}')
+
+if [[ $down == 0 ]]; then
+    printf ""
+elif [[ $down -ge 1024 ]]; then
+	down=$(echo "$down" | numfmt --to iec --format "%1.1f" --from-unit 1024)
+    printf ' %s' "${down}"
+else
+	down=$(echo "$down" | numfmt --to iec --format "%3.0f" --from-unit 1024)
+    printf ' %s' "${down}"
+fi
+
+# up=$(echo "${speeds}" | awk '$1~/Sum/ {print $4}' | awk -F. '{print $1}')
+
+# if [[ $up == 0 ]]; then
+#     printf ""
+# elif [[ $up -ge 1024 ]]; then
+# 	up=$(echo "$up" | numfmt --to iec --format "%1.1f" --from-unit 1024)
+#     printf '祝 %s' "${up}"
+# else
+# 	up=$(echo "$up" | numfmt --to iec --format "%3.0f" --from-unit 1024)
+#     printf '祝 %s' "${up}"
+# fi
