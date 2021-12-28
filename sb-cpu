@@ -9,4 +9,4 @@ temp="$(sb-cpu-temp)"
 
 # echo "CPU: $load $temp"
 # echo "$mem  $load  $temp"
-echo " $load  $temp"
+echo " ${load}%  ${temp}°C"
