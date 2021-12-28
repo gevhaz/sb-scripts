@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if pamixer --list-sinks | grep bluez_sink >/dev/null; then
+    echo "﫽 $(pamixer --get-volume)%"
+else
+    echo " $(pamixer --get-volume)%"
+fi
