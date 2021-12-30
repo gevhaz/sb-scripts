@@ -7,7 +7,7 @@ n_tasks_done_today=$(task +COMPLETED modified:today stats | grep "Completed" | a
 # echo "Tasks: ${n_tasks}"
 # echo " ${n_tasks}"
 if [ "$n_overdue_tasks" -gt 0 ]; then
-    echo " ${n_tasks} 鬒 ${n_overdue_tasks}  $n_tasks_done_today"
+    echo -e " ${n_tasks} \x0e鬒 ${n_overdue_tasks}\x0b  $n_tasks_done_today"
 else
     echo " ${n_tasks}  $n_tasks_done_today"
 fi
