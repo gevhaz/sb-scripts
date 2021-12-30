@@ -1,0 +1,17 @@
+#!/bin/bash
+
+vpn_connections=$(ip a | grep vpn80 | grep -c inet)
+if [[ $vpn_connections -lt 1 ]]; then
+	echo -e "\x0d\x0b"
+    exit 0
+fi
+
+net_connections=$(ip a | grep enp0s20f | grep -c inet)
+wifi_connections=$(ip a | grep wlp2s0 | grep -c inet)
+if [[ $net_connections -eq 1 ]]; then
+	echo ""
+elif [[ $wifi_connections -eq 1 ]]; then
+	echo ""
+else
+	echo " 睊"
+fi
