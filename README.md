@@ -22,6 +22,10 @@ use Nerd Font Hack Mono.
 
 # Scripts
 
+Here are explanations of the scripts, together with example output. If
+you cannot see the icons, it means you don't use Nerd Font in your
+browser.
+
 ## sb-battery
 
 Shows percentage battery left and charge status if supported. Example of
