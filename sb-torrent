@@ -2,22 +2,22 @@
 
 # Script to show data about Transmission
 
-speeds=$(transmission-remote -l)
+speeds=$(transmission-remote -l 2>/dev/null)
 
 if [ -z "${speeds}" ]; then
-    exit 1
+	exit 1
 fi
 
 down=$(echo "${speeds}" | awk '$1~/Sum/ {print $5}' | awk -F. '{print $1}')
 
 if [[ $down == 0 ]]; then
-    printf ""
+	printf ""
 elif [[ $down -ge 1024 ]]; then
 	down=$(echo "$down" | numfmt --to iec --format "%1.1f" --from-unit 1024)
-    printf ' %s' "${down}"
+	printf ' %s' "${down}"
 else
 	down=$(echo "$down" | numfmt --to iec --format "%3.0f" --from-unit 1024)
-    printf ' %s' "${down}"
+	printf ' %s' "${down}"
 fi
 
 # up=$(echo "${speeds}" | awk '$1~/Sum/ {print $4}' | awk -F. '{print $1}')
