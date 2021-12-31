@@ -23,18 +23,18 @@ round() {
 declare -A symbol_map
 
 # Map of weather icon names and human readable expressions
-symbol_map["cloudy"]=""
 symbol_map["clearsky_day"]=""
-symbol_map["lightsleet"]=""
-symbol_map["lightrain"]=""
-symbol_map["fog"]=""
 symbol_map["clearsky_night"]=""
+symbol_map["cloudy"]=""
 symbol_map["fair_night"]=""
-symbol_map["partlycloudy_night"]=""
+symbol_map["fog"]=""
+symbol_map["lightrain"]=""
+symbol_map["lightsleet"]=""
 symbol_map["partlycloudy_day"]=""
-symbol_map["snow"]=""
-symbol_map["sleet"]=""
+symbol_map["partlycloudy_night"]=""
 symbol_map["rain"]=""
+symbol_map["sleet"]=""
+symbol_map["snow"]=""
 
 human_readable() {
 	if [[ -v symbol_map[$1] ]]; then
