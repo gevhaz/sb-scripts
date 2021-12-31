@@ -34,6 +34,7 @@ symbol_map["partlycloudy_night"]=""
 symbol_map["partlycloudy_day"]=""
 symbol_map["snow"]=""
 symbol_map["sleet"]=""
+symbol_map["rain"]=""
 
 human_readable() {
 	if [[ -v symbol_map[$1] ]]; then
