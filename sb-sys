@@ -3,31 +3,71 @@
 # I received this script from someone else and don't know the original author.
 # The same goes for the called scripts.
 
+default="\x0b"
+purple="\x11"
+green="\x10"
+yellow="\x0f"
+orange="\x0e"
+red="\x0d"
+
 load="$(sb-cpu-load)"
 temp="$(sb-cpu-temp)"
 mem=$(free -b | awk '/^Mem:/ { print $3 }')
 
-if [ "$mem" -gt $((3*1073741824)) ]; then
-    mem=$(echo "$mem" | numfmt --to iec)
-    mem=" ${mem}"
+one_gigabyte=1073741824
+
+if [ "$mem" -gt $((3 * one_gigabyte)) ]; then
+	if [ "$mem" -lt $((4 * one_gigabyte)) ]; then
+		color="${default}"
+	elif [ "$mem" -lt $((5 * one_gigabyte)) ]; then
+		color="${purple}"
+	elif [ "$mem" -lt $((6 * one_gigabyte)) ]; then
+		color="${yellow}"
+	elif [ "$mem" -lt $((7 * one_gigabyte)) ]; then
+		color="${orange}"
+	elif [ "$mem" -lt $((8 * one_gigabyte)) ]; then
+		color="${red}"
+	fi
+	mem=$(echo "$mem" | numfmt --to iec)
+	mem="${color} ${mem}${default}"
 else
-    mem=""
+	mem=""
 fi
-
-
 
 if [ "$load" -gt 10 ]; then
-    load=" ${load}%"
+	if [ "$load" -lt 15 ]; then
+		color="${default}"
+	elif [ "$load" -lt 20 ]; then
+		color="${purple}"
+	elif [ "$load" -lt 30 ]; then
+		color="${green}"
+	elif [ "$load" -lt 50 ]; then
+		color="${yellow}"
+	elif [ "$load" -lt 70 ]; then
+		color="${orange}"
+	elif [ "$load" -lt 90 ]; then
+		color="${red}"
+	fi
+	load="${color} ${load}%${default}"
 else
-    load=""
+	load=""
 fi
-
-
 
 if [ "$temp" -gt 55 ]; then
-    temp=" ${temp}°C"
+	if [ "$temp" -lt 60 ]; then
+		color="${default}"
+	elif [ "$temp" -lt 65 ]; then
+		color="${purple}"
+	elif [ "$temp" -lt 70 ]; then
+		color="${yellow}"
+	elif [ "$temp" -lt 75 ]; then
+		color="${orange}"
+	elif [ "$temp" -lt 80 ]; then
+		color="${red}"
+	fi
+	temp="${color} ${temp}°C${default}"
 else
-    temp=""
+	temp=""
 fi
 
-echo "$mem $load $temp" | xargs echo -n
+printf '%b' "$mem $load $temp" | xargs echo -n
