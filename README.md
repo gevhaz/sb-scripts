@@ -126,6 +126,15 @@ to grep for different strings. Check what's right for your computer with
 This means wired connection is connected. If VPN is disconnected, there
 will be a warning.
 
+## sb-sys
+
+Shows memory and CPU usage, but hides it when under certain thresholds.
+Other thresholds determine the color of the output, with more "urgent"
+colors for higher usage.
+
+```
+ 26%  57°C
+```
 ## sb-tasks
 
 This shows information about your [Taskwarrior](taskwarrior.org/) tasks.
