@@ -3,7 +3,7 @@
 This repo contains some scripts I use for my dwm status bar. Each one
 prints out one line of text with content descriped by the script name.
 To use them, put them in your path. I use them with
-[dwmblocks](https://github.com/LukeSmithxyz/dwmblocks) but any status
+[dwmblocks](https://github.com/ashish-yadav11/dwmblocks) but any status
 bar that calls scripts that return the text to display should work just
 as well.
 
@@ -18,7 +18,13 @@ Or as a GIF:
 
 You need to install [Nerd Fonts](https://www.nerdfonts.com) for the
 icons to display correctly, and set dwm to use it. In the screenshot I
-use Nerd Font Hack Mono.
+use Nerd Font Hack Mono. An alternative method is to change the icons in
+each script.
+
+Some scripts use color codes to display color in the statusbar. This
+requires the patch from the above mentioned dwmblocks fork (or anything
+else that can interpret them). If you don't need color, you can remove
+the color code from the scripts.
 
 # Scripts
 
@@ -26,10 +32,19 @@ Here are explanations of the scripts, together with example output. If
 you cannot see the icons, it means you don't use Nerd Font in your
 browser.
 
-## sb-battery
+## sb-bat
 
 Shows percentage battery left and charge status if supported. Example of
 correct output:
+
+```
+ 100%
+```
+
+## sb-battery
+
+Alternative script to show percentage battery left and charge status if
+supported. Example of correct output:
 
 ```
 99%
@@ -98,7 +113,18 @@ Example of correct output:
 
 ```
 
-This means wired connection is connected.
+## sb-net-vpn
+
+Show's whether you're connected to a network and a vpn. You might need
+to grep for different strings. Check what's right for your computer with
+`ip a`. Example of correct output:
+
+```
+
+```
+
+This means wired connection is connected. If VPN is disconnected, there
+will be a warning.
 
 ## sb-tasks
 
@@ -111,12 +137,24 @@ of correct output:
  4 鬒 9  0
 ```
 
+"Today" is considered over at 4 in the morning the next day.
+
 ## sb-time
 
 Shows the time. Example of correct output:
 
 ```
-2021-12-14 23:09 
+2021-12-14 23:09
+```
+
+## sb-torrent
+
+Shows download and upload speeds of
+[Transmission](https://transmissionbt.com) bittorrent client. Speeds are
+show in human-readable format thanks to numfmt.
+
+```
+ 43K
 ```
 
 ## sb-vol
@@ -125,6 +163,16 @@ Shows audio volume. Example of correct output:
 
 ```
  33%
+```
+
+## sb-vol-bt
+
+Combines sb-bluetooth and sb-vol. Shows audio volume as percentage and
+whether a bluetooth audio device is connected with an icon. Example of
+correct output:
+
+```
+﫽 33%
 ```
 
 ## sb-vpn
