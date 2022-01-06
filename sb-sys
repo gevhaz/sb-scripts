@@ -16,16 +16,16 @@ mem=$(free -b | awk '/^Mem:/ { print $3 }')
 
 one_gigabyte=1073741824
 
-if [ "$mem" -gt $((3 * one_gigabyte)) ]; then
-	if [ "$mem" -lt $((4 * one_gigabyte)) ]; then
+if [ "$mem" -gt $((2 * one_gigabyte)) ]; then
+	if [ "$mem" -lt $((3 * one_gigabyte)) ]; then
 		color="${default}"
-	elif [ "$mem" -lt $((5 * one_gigabyte)) ]; then
+	elif [ "$mem" -lt $((4 * one_gigabyte)) ]; then
 		color="${purple}"
-	elif [ "$mem" -lt $((6 * one_gigabyte)) ]; then
+	elif [ "$mem" -lt $((5 * one_gigabyte)) ]; then
 		color="${yellow}"
-	elif [ "$mem" -lt $((7 * one_gigabyte)) ]; then
+	elif [ "$mem" -lt $((6 * one_gigabyte)) ]; then
 		color="${orange}"
-	elif [ "$mem" -lt $((8 * one_gigabyte)) ]; then
+	elif [ "$mem" -lt $((7 * one_gigabyte)) ]; then
 		color="${red}"
 	fi
 	mem=$(echo "$mem" | numfmt --to iec)
@@ -34,7 +34,7 @@ else
 	mem=""
 fi
 
-if [ "$load" -gt 10 ]; then
+if [ "$load" -gt 5 ]; then
 	if [ "$load" -lt 15 ]; then
 		color="${default}"
 	elif [ "$load" -lt 20 ]; then
@@ -53,7 +53,7 @@ else
 	load=""
 fi
 
-if [ "$temp" -gt 55 ]; then
+if [ "$temp" -gt 50 ]; then
 	if [ "$temp" -lt 60 ]; then
 		color="${default}"
 	elif [ "$temp" -lt 65 ]; then
