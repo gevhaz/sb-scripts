@@ -1,8 +1,11 @@
 #! /bin/bash
 
-n_tasks=$(task due.before:tomorrow+4hours and due.after:yesterday+4hours -OVERDUE stats | grep "Pending" | awk '{print $2}')
+today_start=$(date --date="4 hours ago" "+%Y-%m-%dT00:00:00")
+yesterday_start=$(date --date="28 hours ago" "+%Y-%m-%dT00:00:00")
+
+n_tasks=$(task due.before:"$today_start" and due.after:"$yesterday_start" -OVERDUE stats | grep "Pending" | awk '{print $2}')
 n_overdue_tasks=$(task +OVERDUE stats | grep "Pending" | awk '{print $2}')
-n_tasks_done_today=$(task +COMPLETED modified.after:today+4hours stats | grep "Completed" | awk '{print $2}')
+n_tasks_done_today=$(task +COMPLETED modified.after:"$today_start" stats | grep "Completed" | awk '{print $2}')
 
 # echo "Tasks: ${n_tasks}"
 # echo " ${n_tasks}"
