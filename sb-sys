@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# I received this script from someone else and don't know the original author.
-# The same goes for the called scripts.
-
 default="\x0b"
 purple="\x11"
 green="\x10"
@@ -25,7 +22,7 @@ if [ "$mem" -gt $((2 * one_gigabyte)) ]; then
 		color="${yellow}"
 	elif [ "$mem" -lt $((6 * one_gigabyte)) ]; then
 		color="${orange}"
-	elif [ "$mem" -lt $((7 * one_gigabyte)) ]; then
+    else
 		color="${red}"
 	fi
 	mem=$(echo "$mem" | numfmt --to iec)
@@ -39,13 +36,13 @@ if [ "$load" -gt 5 ]; then
 		color="${default}"
 	elif [ "$load" -lt 20 ]; then
 		color="${purple}"
-	elif [ "$load" -lt 30 ]; then
+	elif [ "$load" -lt 40 ]; then
 		color="${green}"
-	elif [ "$load" -lt 50 ]; then
+	elif [ "$load" -lt 60 ]; then
 		color="${yellow}"
-	elif [ "$load" -lt 70 ]; then
+	elif [ "$load" -lt 80 ]; then
 		color="${orange}"
-	elif [ "$load" -lt 90 ]; then
+    else
 		color="${red}"
 	fi
 	load="${color} ${load}%${default}"
@@ -58,11 +55,11 @@ if [ "$temp" -gt 50 ]; then
 		color="${default}"
 	elif [ "$temp" -lt 65 ]; then
 		color="${purple}"
-	elif [ "$temp" -lt 70 ]; then
-		color="${yellow}"
 	elif [ "$temp" -lt 75 ]; then
+		color="${yellow}"
+	elif [ "$temp" -lt 85 ]; then
 		color="${orange}"
-	elif [ "$temp" -lt 80 ]; then
+    else
 		color="${red}"
 	fi
 	temp="${color} ${temp}°C${default}"
