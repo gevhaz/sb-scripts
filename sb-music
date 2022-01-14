@@ -14,8 +14,8 @@ else
 	song_data=$(playerctl metadata --format "{{artist}} - {{title}}" 2>/dev/null)
 fi
 
-artist=$(echo "${song_data}" | awk -F "-" '{print $1}' | awk '{$1=$1}1')
-title=$(echo "${song_data}" | awk -F "-" '{print $2}' | awk '{$1=$1}1')
+artist=$(echo "${song_data}" | awk -F " - " '{print $1}' | awk '{$1=$1}1')
+title=$(echo "${song_data}" | awk -F " - " '{print $2}' | awk '{$1=$1}1')
 song_data="${artist:+${artist} - }${title}"
 song_length=${#song_data}
 
