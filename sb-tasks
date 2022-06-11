@@ -1,5 +1,25 @@
 #! /bin/bash
 
+default="\x0b"
+# purple="\x11"
+green="\x10"
+yellow="\x0f"
+# orange="\x0e"
+# red="\x0d"
+
+text_length=20
+
+rolling_text() {
+    text=$1
+    length=$2
+	time=$(awk '{print int($1) + 1000}' /proc/uptime)
+	time=$((time % length))
+	text="${text} » ${text}"
+	text=${text:time}
+	text=${text::text_length}
+    echo "$text"
+}
+
 today_start=$(date --date="4 hours ago" "+%Y-%m-%dT04:00:00")
 tomorrow_start=$(date --date="+20 hours" "+%Y-%m-%dT04:00:00")
 
@@ -15,3 +35,14 @@ else
     echo " ${n_tasks}  $n_tasks_done_today"
 fi
 # echo "陼 ${n_tasks}"
+
+next_task="$(task +ACTIVE export | jq '.[] | .description' | tr -d '"')"
+prio_task="$(task rc.verbose: limit:1 highest)"
+
+if [ -n "$next_task" ]; then
+    rolling=$(rolling_text "$next_task" "$text_length")
+	echo -ne " | ${green}${rolling}${default}"
+elif [ -n "$prio_task" ]; then
+    rolling=$(rolling_text "$prio_task" "$text_length")
+	echo -ne " | ${yellow}${rolling}${default}"
+fi
