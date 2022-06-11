@@ -2,6 +2,17 @@
 
 shopt -s extglob
 
+rolling_text() {
+    text=$1
+    length=$2
+	time=$(awk '{print int($1) + 1000}' /proc/uptime)
+	time=$((time % length))
+	text="${text} » ${text}"
+	text=${text:time}
+	text=${text::text_length}
+    echo "$text"
+}
+
 quodlibet_status=$(playerctl status --player quodlibet 2>/dev/null)
 
 if [[ $quodlibet_status != "Paused" && $quodlibet_status != "No players found" ]]; then
@@ -27,11 +38,7 @@ signal_pattern="Signal?()"
 if [[ -z $song_data || ${title} == "YouTube Music" || ${title} =~ $signal_pattern ]]; then
     echo "~"
 elif [[ $song_length -ge $text_length ]]; then
-	time=$(awk '{print int($1) + 1000}' /proc/uptime)
-	time=$((time % song_length))
-	song_data="${song_data} » ${song_data}"
-	song_data=${song_data:time}
-	song_data=${song_data::text_length}
+    song_data=$(rolling_text "$song_data" "$text_length")
 	echo "$song_data"
 else
 	echo "$song_data"
