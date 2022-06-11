@@ -11,13 +11,18 @@ text_length=20
 
 rolling_text() {
     text=$1
-    length=$2
-	time=$(awk '{print int($1) + 1000}' /proc/uptime)
-	time=$((time % length))
-	text="${text} » ${text}"
-	text=${text:time}
-	text=${text::text_length}
-    echo "$text"
+    max_length=$2
+    text_length=${#text}
+    if [[ $text_length -ge $max_length ]]; then
+        time=$(awk '{print int($1) + 1000}' /proc/uptime)
+        time=$((time % max_length))
+        text="${text} » ${text}"
+        text=${text:time}
+        text=${text::max_length}
+        echo "$text"
+    else
+        echo "$text"
+    fi
 }
 
 today_start=$(date --date="4 hours ago" "+%Y-%m-%dT04:00:00")
