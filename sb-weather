@@ -42,6 +42,7 @@ symbol_map["snow"]=""
 symbol_map["rainshowersandthunder_night"]=""
 symbol_map["rainshowersandthunder_day"]=""
 symbol_map["rainandthunder"]=""
+symbol_map["heavyrainandthunder"]=""
 symbol_map["heavyrainshowersandthunder_night"]=""
 
 human_readable() {
