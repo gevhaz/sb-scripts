@@ -11,7 +11,7 @@ case "$state" in
 	*) exit 1 ;;
 esac
 
-if [[ ${percentage::-1} -le 10 ]] ; then
+if [[ ${percentage::-1} -le 45 ]] ; then
     state_icon=""
 fi
 

@@ -44,6 +44,7 @@ symbol_map["rainshowersandthunder_day"]=""
 symbol_map["rainandthunder"]=""
 symbol_map["heavyrainandthunder"]=""
 symbol_map["heavyrainshowersandthunder_night"]=""
+symbol_map["sleetshowers_night"]=""
 
 human_readable() {
 	if [[ -v symbol_map[$1] ]]; then

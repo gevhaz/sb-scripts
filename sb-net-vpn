@@ -1,6 +1,6 @@
 #!/bin/bash
 
-vpn_connections=$(ip a | grep vpn80 | grep -c inet)
+vpn_connections=$(ip a | grep vpn | grep -c inet)
 if [[ $vpn_connections -lt 1 ]]; then
 	echo -e "\x0d\x0b"
     exit 0
