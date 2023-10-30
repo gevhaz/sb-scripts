@@ -35,7 +35,7 @@ for battery in /sys/class/power_supply/BAT?*; do
 	# Will make a warn variable if discharging and low
 	[ "$status" = "" ] && [ "$capacity" -le 25 ] && warn="❗"
 	# Prints the info
-    if [ "${capacity}" -le 20 ]; then
+    if [ "${capacity}" -le 15 ]; then
         notify-send "Battery is low: $capacity"
     fi
 
