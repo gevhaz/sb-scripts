@@ -1,0 +1,22 @@
+#!/bin/sh
+
+: "${SCRIPTS_DIR:=/opt/sb-scripts}"
+
+if [ $# -ne 1 ]; then
+    printf "sb takes exactly one argument\n"
+    exit 1
+fi
+
+SCRIPT_NAME="sb-$1"
+
+if [ ! -f "$SCRIPTS_DIR/$SCRIPT_NAME" ]; then
+    printf "The script '%s' does not seem to exist\n" "$SCRIPT_NAME"
+    exit 1
+fi
+
+if [ ! -x "$SCRIPTS_DIR/$SCRIPT_NAME" ]; then
+    printf "The scrip '%s' is not executable\n" "$SCRIPT_NAME"
+    exit 1
+fi
+
+exec "$SCRIPTS_DIR/$SCRIPT_NAME"
