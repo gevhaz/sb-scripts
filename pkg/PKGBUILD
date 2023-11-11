@@ -1,0 +1,16 @@
+pkgname=sb-scripts
+pkgver=0.1.0
+pkgrel=1
+arch=('any')
+pkgdesc="A collection of system information scripts for use in a desktop statusbar."
+source=("git+https://github.com/gevhaz/sb-scripts.git")
+sha256sums=('SKIP')
+package() {
+    cd "$srcdir/$pkgname"
+    mkdir -p "$pkgdir/opt/sb-scripts/"
+    mkdir -p "$pkgdir/usr/bin"
+    for source_file in sb-*; do
+        install -Dm755 "$source_file" "$pkgdir/opt/sb-scripts/"
+    done
+    install -Dm755 "sb" "$pkgdir/usr/bin/"
+}
