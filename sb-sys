@@ -7,9 +7,29 @@ yellow="\x0f"
 orange="\x0e"
 red="\x0d"
 
-load="$(sb-cpu-load)"
-temp="$(sb-cpu-temp)"
-mem=$(free -b | awk '/^Mem:/ { print $3 }')
+load() {
+    read -r _ a b c previdle rest </proc/stat
+    prevtotal=$((a + b + c + previdle))
+    sleep 0.5
+    read -r _ a b c idle rest </proc/stat
+    total=$((a + b + c + idle))
+
+    load=$((100 * ((total - prevtotal) - (idle - previdle)) / (total - prevtotal)))
+    echo $load | numfmt --format "%2.0f"
+}
+
+temp() {
+    temp=$(sensors | awk '/Core 0/ { print $3 }' | sed "s/+//;s/\.[0-9]//;s/°C//")
+    echo "$temp"
+}
+
+mem() {
+    free -b | awk '/^Mem:/ { print $3 }'
+}
+
+load="$(load)"
+temp="$(temp)"
+mem="$(mem)"
 
 one_gigabyte=1073741824
 
