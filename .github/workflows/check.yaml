@@ -1,0 +1,6 @@
+---
+name: Check
+on: pull_request
+jobs:
+  build:
+    uses: ./.github/workflows/build.yaml

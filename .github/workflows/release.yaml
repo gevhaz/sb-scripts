@@ -1,0 +1,52 @@
+---
+name: Release
+on:
+  push:
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+"
+env:
+  PACKAGE_VERSION: ${{ github.ref_name }}
+jobs:
+  build:
+    uses: ./.github/workflows/build.yaml
+    with:
+      package_version: ${{ github.ref_name }}
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create release
+        env:
+          TOKEN: ${{ secrets.SB_SCRIPTS_TOKEN }}
+        run: |
+          set -e
+          RESPONSE=$(curl -L --fail \
+            -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $TOKEN" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/gevhaz/sb-scripts/releases \
+            -d "{\"tag_name\":\"${PACKAGE_VERSION}\",\"generate_release_notes\":true}")
+          RELEASE_ID=$(echo "$RESPONSE" | jq .id)
+          echo "RELEASE_ID=$RELEASE_ID" >> $GITHUB_ENV
+      - name: Download earlier uploaded artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: built_package.tar
+      - name: Extract earlier built Arch package from artifact
+        run: tar -xvf built_package.tar
+      - name: Add Arch package as release asset
+        env:
+          TOKEN: ${{ secrets.SB_SCRIPTS_TOKEN }}
+        run: |
+          set -e
+          PACKAGE_ARTIFACT=$(find . -maxdepth 1 -name "*.pkg.tar.zst" -printf "%P")
+          curl --fail \
+            -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $TOKEN" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            -H "Content-Type: application/octet-stream" \
+            https://uploads.github.com/repos/gevhaz/sb-scripts/releases/$RELEASE_ID/assets?name=${PACKAGE_ARTIFACT} \
+            --data-binary "packaging/arch/$PACKAGE_ARTIFACT"
