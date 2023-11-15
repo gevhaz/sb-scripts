@@ -1,0 +1,41 @@
+---
+name: Build
+on:
+  workflow_call:
+    inputs:
+      package_version:
+        required: false
+        type: string
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: archlinux:latest
+    defaults:
+      run:
+        working-directory: ./packaging/arch
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare system
+        run: |
+          useradd -m gevhaz
+          chown gevhaz:gevhaz . --recursive
+          pacman -Syu --noconfirm
+          pacman -S git fakeroot binutils --noconfirm
+      - name: Update package version in PKGBUILD
+        if: inputs.package_version != ''
+        run: |
+          sed -i "/pkgver=/c\pkgver=${PACKAGE_VERSION#v}" PKGBUILD
+        env:
+          PACKAGE_VERSION: ${{ inputs.package_version }}
+      - name: Create package
+        run: su gevhaz --command makepkg
+      - name: Install package
+        run: pacman -U sb-scripts*.pkg.tar.zst --noconfirm
+      - name: Archive package for artifact upload
+        run: tar -cvf built_package.tar sb-scripts*.pkg.tar.zst
+      - name: Upload package archive as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: built_package.tar
+          path: packaging/arch/built_package.tar
+          if-no-files-found: error
