@@ -210,9 +210,10 @@ output:
 
 ## sb-weather
 
-Shows weather information from yr.no. You have to change the coordinates
-in the script to fit with your local settings. Example of correct
-output:
+Shows weather information from yr.no. You have to provide coordinates as
+arguments – first the latitude of the place where you want to see the weather,
+then the longitude. There is no limit on how specific the coordinates need to be
+with regards to decimals. Example of correct output:
 
 ```
 +4°C 
