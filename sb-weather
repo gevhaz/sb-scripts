@@ -1,14 +1,12 @@
 #! /bin/bash
 
-# Change the coordinates in the url if you want weather data for another
-# location.
-weather_data_lund=$(curl -A "sb-weather/0.1" -s "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=55.7179&lon=13.20798")
+# The coordinates sent to YR.
+LATITUDE="${1:?Error: First argument must be latitude where to check weather}"
+LONGITUDE="${2:?Error: Second argument must be longitude where to check weather}"
+
+weather_data_lund=$(curl -A "sb-weather/0.1" -s "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=${LATITUDE}&lon=${LONGITUDE}")
 today_weather=$(echo "${weather_data_lund}" | jq -r '.properties.timeseries[0].data.next_6_hours.summary.symbol_code')
 today_temp=$(echo "${weather_data_lund}" | jq -r '.properties.timeseries[0].data.instant.details.air_temperature')
-# today_time=$(echo "${weather_data_lund}" | jq -r '.properties.timeseries[0].time')
-# tomorrow_weather=$(echo "${weather_data_lund}" | jq -r '.properties.timeseries[24].data.next_12_hours.summary.symbol_code')
-# tomorrow_time=$(echo "${weather_data_lund}" | jq -r '.properties.timeseries[24].time')
-# tomorrow_temp=$(echo "${weather_data_lund}" | jq -r '.properties.timeseries[24].data.instant.details.air_temperature')
 
 round() {
 	round_n=$(echo "$1" | awk '{print ($0>0)?(($0-int($0)<0.5)?int($0):(int($0)+1)):((int($0)-$0<0.5)?int($0):int($0)-1)}')
