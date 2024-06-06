@@ -2,8 +2,8 @@
 
 : "${SCRIPTS_DIR:=/opt/sb-scripts}"
 
-if [ $# -ne 1 ]; then
-    printf "sb takes exactly one argument\n"
+if [ $# -lt 1 ]; then
+    printf "sb needs at least one argument\n"
     exit 1
 fi
 
@@ -19,4 +19,6 @@ if [ ! -x "$SCRIPTS_DIR/$SCRIPT_NAME" ]; then
     exit 1
 fi
 
-exec "$SCRIPTS_DIR/$SCRIPT_NAME"
+shift
+
+exec "$SCRIPTS_DIR/$SCRIPT_NAME" "$@"
