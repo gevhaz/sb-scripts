@@ -32,6 +32,19 @@ Here are explanations of the scripts, together with example output. If
 you cannot see the icons, it means you don't use Nerd Font in your
 browser.
 
+## sb
+
+This script is a wrapper for all the other scripts.
+
+The script is only usable if sb-scripts is installed as a system package. You
+can install it this way for Arch Linux by running `makepkg` in `packaging/arch`,
+and it will build the package based on the `PKGBUID` file you find there. You
+can then install it with `pacman -U`.
+
+Once you have this script, you can use it to run the other scripts. Instead of
+running, for example, `sb-bat`, you'd run `sb bat`, or instead of `./sb-net-vpn
+<interface-name>`, you'd run `sb net-vpn <interface-name>`.
+
 ## sb-bat
 
 Shows percentage battery left and charge status if supported. Example of
