@@ -20,7 +20,7 @@ jobs:
           useradd -m gevhaz
           chown gevhaz:gevhaz . --recursive
           pacman -Syu --noconfirm
-          pacman -S git fakeroot binutils --noconfirm
+          pacman -S git fakeroot binutils debugedit --noconfirm
       - name: Update package version in PKGBUILD
         if: inputs.package_version != ''
         run: |
