@@ -1,6 +1,8 @@
 #!/bin/bash
 
-vpn_connections=$(ip a | grep vpn | grep -c inet)
+VPN_INTERFACE_NAME="${1:?Error: an interface name must be provided as the first argument}"
+
+vpn_connections=$(ip a | grep "$VPN_INTERFACE_NAME" | grep -c inet)
 if [[ $vpn_connections -lt 1 ]]; then
 	echo -e "\x0d\x0b"
     exit 0

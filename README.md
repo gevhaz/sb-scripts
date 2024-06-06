@@ -128,9 +128,10 @@ Example of correct output:
 
 ## sb-net-vpn
 
-Show's whether you're connected to a network and a vpn. You might need
-to grep for different strings. Check what's right for your computer with
-`ip a`. Example of correct output:
+Show's whether you're connected to a network and a vpn. Takes one argument,
+which is a string that will only be found in the `ip a` output if you are
+connected to your VPN. That is, the name of your VPN/WireGuard interface.
+Example of correct output:
 
 ```
 
@@ -200,9 +201,9 @@ correct output:
 
 ## sb-vpn
 
-Shows if vpn is connected. You might need to change what the script
-greps for to fit with your own available connections. Example of correct
-output:
+Shows if vpn is connected. Takes one argument, which is a string that will only
+be found in the `ip a` output if you are connected to your VPN. That is, the
+name of your VPN/WireGuard interface. Example of correct output:
 
 ```
 
