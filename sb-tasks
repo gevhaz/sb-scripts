@@ -4,7 +4,7 @@ default="\x0b"
 # purple="\x11"
 green="\x10"
 yellow="\x0f"
-# orange="\x0e"
+orange="\x0e"
 # red="\x0d"
 
 text_length=20
@@ -19,35 +19,35 @@ rolling_text() {
         text="${text} » ${text}"
         text=${text:time}
         text=${text::max_length}
-        echo "$text"
+        printf "%s" "$text"
     else
-        echo "$text"
+        printf "%s" "$text"
     fi
 }
 
 today_start=$(date --date="4 hours ago" "+%Y-%m-%dT04:00:00")
 tomorrow_start=$(date --date="+20 hours" "+%Y-%m-%dT04:00:00")
 
-n_tasks=$(task due.before:"$tomorrow_start" and due.after:"$today_start" -OVERDUE stats | grep "Pending" | awk '{print $2}')
-n_overdue_tasks=$(task +OVERDUE stats | grep "Pending" | awk '{print $2}')
-n_tasks_done_today=$(task +COMPLETED modified.after:"$today_start" stats | grep "Completed" | awk '{print $2}')
+n_tasks=$(task due.before:"$tomorrow_start" and due.after:"$today_start" status:pending -OVERDUE export | jq 'length')
+n_overdue_tasks=$(task +OVERDUE export | jq 'length')
+n_tasks_done_today=$(task +COMPLETED modified.after:"$today_start" export | jq 'length')
 
-# echo "Tasks: ${n_tasks}"
 # echo " ${n_tasks}"
 if [ "$n_overdue_tasks" -gt 0 ]; then
-    echo -e " ${n_tasks} \x0e鬒 ${n_overdue_tasks}\x0b  $n_tasks_done_today"
+    task_numbers=$(printf " %s %s鬒 %s%s  %s" "$n_tasks" "$orange" "$n_overdue_tasks" "$default" "$n_tasks_done_today")
 else
-    echo " ${n_tasks}  $n_tasks_done_today"
+    task_numbers=$(printf " %s  %s" "$n_tasks" "$n_tasks_done_today")
 fi
 # echo "陼 ${n_tasks}"
 
-next_task="$(task +ACTIVE export | jq '.[] | .description' | tr -d '"')"
-prio_task="$(task rc.verbose: limit:1 highest)"
+n_active_tasks="$(task +ACTIVE export | jq 'length')"
+highest_prio_task="$(task status:pending export | jq -r 'max_by(.urgency) | .description')"
 
-if [ -n "$next_task" ]; then
-    rolling=$(rolling_text "$next_task" "$text_length")
-	echo -ne " | ${green}${rolling}${default}"
-elif [ -n "$prio_task" ]; then
-    rolling=$(rolling_text "$prio_task" "$text_length")
-	echo -ne " | ${yellow}${rolling}${default}"
+if [ "$n_active_tasks" -ne 0 ]; then
+    rolling=$(rolling_text "$highest_prio_task" "$text_length")
+    colored_rolling=$(printf "%s%s%s" "${green}" "${rolling}" "${default}")
+elif [ -n "$highest_prio_task" ]; then
+    rolling=$(rolling_text "$highest_prio_task" "$text_length")
+    colored_rolling=$(printf "%s%s%s" "${yellow}" "${rolling}" "${default}")
 fi
+echo -ne "$task_numbers | $colored_rolling"
