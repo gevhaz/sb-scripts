@@ -1,5 +1,5 @@
 pkgname=sb-scripts
-pkgver=0.1.0
+pkgver=0.3.0
 pkgrel=1
 arch=('any')
 pkgdesc="A collection of system information scripts for use in a desktop statusbar."
