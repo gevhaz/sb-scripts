@@ -151,14 +151,14 @@ colors for higher usage.
 ```
 ## sb-tasks
 
-This shows information about your [Taskwarrior](taskwarrior.org/) tasks.
-First number is the number of tasks due today, second is the number of
-overdue tasks, and third is the number of tasks completed today. It also
-shows rolling text of the active task, or otherwise the highest urgency
-task if there is one. Example of correct output:
+This shows information about your [Taskwarrior](taskwarrior.org/) tasks. First
+number is the number of tasks due today, second is the number of overdue tasks,
+and third is the number of tasks completed today. It also shows truncated text
+of the active task, or otherwise the highest urgency task if there is one.
+Example of correct output:
 
 ```
- 4 鬒 9  0 | task » the started
+ 4 鬒 9  0 | started ta…
 ```
 
 "Today" is considered over at 4 in the morning the next day.
