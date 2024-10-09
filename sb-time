@@ -1,4 +1,15 @@
 #! /bin/bash
 
-# LC_ALL=en date "+%Y-%m-%d %H:%M"
-LC_ALL=en date "+%d/%m %H:%M"
+my_datetime=$(LC_ALL=en date "+%d/%m %H:%M")
+
+if [ -n "$1" ]; then
+    EXTRA_TIMEZONE=${2:?Please provide poth timezone and place name}
+    EXTRA_PLACE_NAME=$1
+    other_time=$(TZ="$EXTRA_TIMEZONE" LC_ALL=en date "+%H:%M")
+    printf "%s" "$my_datetime"
+    printf " (%s %s)" "$EXTRA_PLACE_NAME" "$other_time"
+else
+    printf "%s" "$my_datetime"
+fi
+
+printf "\n"
