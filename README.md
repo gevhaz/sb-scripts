@@ -168,7 +168,20 @@ Example of correct output:
 Shows the time. Example of correct output:
 
 ```
-2021-12-14 23:09
+09/10 23:09
+```
+
+Optionally take two arguments – place name and time zone. So if you call it like
+this:
+
+```console
+$ sb time US America/New_York
+```
+
+You would get the following output:
+
+```
+09/10 23:09 (US 18:09)
 ```
 
 ## sb-torrent
